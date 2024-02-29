@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-size: 30px;
+            color: cyan;
+            font-family: Arial, sans-serif;
+            background-image: url('images/singapore-1990959_1280.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        #countdown-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        #countdown {
+            color: cyan;
+        }
+      </style>
+</head>
+<body>
+    <h2>Free laptop Giveaway</h2>
+    <h6>From now till the 11th of march, Adekunle and co will be giving out a free Adek<sup>&copy;</sup> series laptops to the first 100 customers to request one</h6> 
+    <p><h6>Click the link below to make your request</h6></p>
+    <h6><a href="">Make request</a></h6>
+    <br>
+    <img src="images/laptop-5673901_1280.jpg" width="680" alt="">
+
+    <div id="countdown-container">
+        <table id="countdown">
+            <tr id="countdown-timer">
+                <td><span id="days"> </span>days</td>
+                <td><span id="hours"></span>hours</td>
+                <td><span id="minutes"></span>minutes</td>
+                <td><span id="seconds"></span>seconds</td>
+            </tr>
+            <tr id="countdown-labels">
+                <td><span>Days</span></td>
+                <td><span>Hours</span></td>
+                <td><span>Minutes</span></td>
+                <td><span>Seconds</span></td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        const storeOpening = new Date('March 11, 2024 00:00:00');
+        let intervalId;
+
+        function setCountdown(countingDownTime){
+            let now = new Date();
+            let timeRemaining = countingDownTime - now;
+
+            let Seconds = Math.floor(timeRemaining/1000);
+            let Minutes = Math.floor(timeRemaining/(1000*60));
+            let Hours = Math.floor(timeRemaining/(1000*60*60));
+            let Days = Math.floor(timeRemaining/(1000*60*60*24));
+
+            let daystoDisplay = Days;
+            let hourstoDisplay = Hours - (Days * 24);
+            let minutestoDisplay = Minutes - (Hours * 60);
+            let secondstoDisplay = Seconds - (Minutes  * 60);
+
+            const daysEL = document.getElementById('days');
+            const hoursEL = document.getElementById('hours');
+            const minutesEL = document.getElementById('minutes');
+            const secondsEL =document.getElementById('seconds');
+
+            daysEL.textContent = daystoDisplay < 10 ? `0${daystoDisplay}` : daystoDisplay;
+            hoursEL.textContent = hourstoDisplay < 10 ? `0${hourstoDisplay}` : hourstoDisplay;
+            minutesEL.textContent = minutestoDisplay < 10 ? `0${minutestoDisplay}` : minutestoDisplay;
+            secondsEL.textContent = secondstoDisplay < 10 ? `0${secondstoDisplay}` : secondstoDisplay;
+
+            if(timeRemaining < 0){
+                clearInterval(intervalId);
+                document.getElementById('countdown').innerHTML = '<h1>Store is now open! </h1>';
+            }
+        }
+
+        intervalId = setInterval(() => {
+            setCountdown(storeOpening);
+        }, 1000);
+    </script>
+</body>
+</html>
